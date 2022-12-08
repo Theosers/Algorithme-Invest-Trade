@@ -1,12 +1,19 @@
 import csv
 
 dataset = []
-with open('dataset2.csv', newline='') as csvfile:
+dataset2 = []
+with open('dataset1.csv', newline='') as csvfile:
     spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
     for row in spamreader:
         if row[0].split(',')[0] == 'name' or float(row[0].split(',')[1]) <= 0 or float(row[0].split(',')[2]) <= 0 :
             continue
         dataset.append((row[0].split(',')[0], int(float(row[0].split(',')[1])*100), int(float(row[0].split(',')[2])/100*float(row[0].split(',')[1])*100) ))
+with open('dataset2.csv', newline='') as csvfile:
+    spamreader2 = csv.reader(csvfile, delimiter=' ', quotechar='|')
+    for row in spamreader2:
+        if row[0].split(',')[0] == 'name' or float(row[0].split(',')[1]) <= 0 or float(row[0].split(',')[2]) <= 0 :
+            continue
+        dataset2.append((row[0].split(',')[0], int(float(row[0].split(',')[1])*100), int(float(row[0].split(',')[2])/100*float(row[0].split(',')[1])*100) ))
 
 # Solution optimale - programmation dynamique
 def sacADos_dynamique(capacite, elements):
@@ -36,9 +43,18 @@ def sacADos_dynamique(capacite, elements):
 
     return elements_poids/100,matrice[-1][-1]/100, elements_selection
 
-resultat_dynamique = sacADos_dynamique(50000, dataset)
-print('Coût total : ', resultat_dynamique[0] )
-print('profits : ', resultat_dynamique[1] )
+resultat_un= sacADos_dynamique(50000, dataset)
+print('\n', 'RESULTATS DATASET 1'.center(40,'#'), '\n')
+print('Coût total : ', resultat_un[0] )
+print('profits : ', resultat_un[1] )
 print('Actions achetées : ')
-for i in range(len(resultat_dynamique[2])) :
-    print(resultat_dynamique[2][i][0])
+for i in range(len(resultat_un[2])) :
+    print(resultat_un[2][i][0])
+
+resultat_deux = sacADos_dynamique(50000, dataset2)
+print('\n', 'RESULTATS DATASET 2'.center(40, '#'), '\n')
+print('Coût total : ', resultat_deux[0] )
+print('profits : ', resultat_deux[1] )
+print('Actions achetées : ')
+for i in range(len(resultat_deux[2])) :
+    print(resultat_deux[2][i][0])
