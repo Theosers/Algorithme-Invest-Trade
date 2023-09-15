@@ -16,3 +16,4 @@ Designing an algorithm that will maximize the profit achieved by clients after t
 
 ## How to use this repository
 
+For each Python file, a different algorithm. To execute the algorithm, simply write the function in an interpreter, specifying the bank account's capacity and the list of items to process.
